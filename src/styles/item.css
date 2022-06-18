@@ -1,0 +1,22 @@
+.img {
+    width: 60px!important;
+    height: 60px !important;
+    margin: 20%;
+    
+}
+.item {
+    width : 342px;
+    height : 150px;
+    margin-right: 10px;
+    background-color: rgb(246, 248, 249);
+    border: solid brown 3px;
+    border-radius: 17px;
+}
+.b {
+    width: 100px;
+    height: 100px;
+    margin-left: 2%;
+    border:solid black 1px;
+    align-self: center;
+    background-color: white;
+}
