@@ -1,16 +1,24 @@
+import { useEffect } from "react";
 import { plantList } from "../datas/plantList";
 
 function Cart({ cart, updateCart }) {
-	function removeFromCart(id) {
-		let c = [...cart]
-    const result=c.findIndex((element)=>element[0]===id)
-        c[result][1] --
-		console.log(c[result][1]);
-    if (c[result][1]===0) {
-		c.splice(result,1)
-	}
+  function removeFromCart(id) {
+    let c = [...cart];
+    const result = c.findIndex((element) => element[0] === id);
+    c[result][1]--;
+    console.log(c[result][1]);
+    if (c[result][1] === 0) {
+      c.splice(result, 1);
+    }
     updateCart(c);
-	}
+  }
+  useEffect(()=>{alert(`You have just changed the elements of your cart\nYou now have ${total()} DT to pay 💸`)},[total])
+  function total() {
+    return cart.reduce((total, plant) => {
+      return (total +=
+        plantList.find((element) => plant[0] === element.id).price * plant[1]);
+    }, 0);
+  }
   return (
     <div>
       <h2>Cart</h2>
@@ -31,7 +39,7 @@ function Cart({ cart, updateCart }) {
                   <td>{p.name}</td>
                   <td>{value}</td>
                   <td>
-                    <button onClick={()=>removeFromCart(key)}>remove</button>
+                    <button onClick={() => removeFromCart(key)}>remove</button>
                   </td>
                 </tr>
               );
@@ -41,13 +49,7 @@ function Cart({ cart, updateCart }) {
       ) : (
         <h4>No elements in cart</h4>
       )}
-      <h5>
-        Total :{" "}
-        {cart.reduce((total, plant) => {
-          return (total += plantList.find((element)=>plant[0]===element.id).price*plant[1]);
-        }, 0)}{" "}
-        DT
-      </h5>
+      <h5>Total : {total()} DT</h5>
     </div>
   );
 }
